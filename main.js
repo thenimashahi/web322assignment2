@@ -1,6 +1,7 @@
 const express= require("express");
 const exphbs = require("express-handlebars");
 const bodyParser = require('body-parser');
+const productModel = require("./models/products.js");
 
 
 const app = express();
@@ -22,7 +23,9 @@ app.get("/",(req,res)=>{
         
         res.render("index",{
                 title : "Home Page",
-                derp: "Nima"
+                categories: productModel.getCategories(),
+                bestSellers: productModel.getBestSellers()
+                
         })
 
 });
@@ -31,7 +34,8 @@ app.get("/",(req,res)=>{
 app.get("/products",(req,res)=>{
 
         res.render("products",{
-                title : "Products Page"
+                title : "Products Page",
+                data: productModel.getAllProducts()
         })
 });
 

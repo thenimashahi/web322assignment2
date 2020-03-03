@@ -1,6 +1,36 @@
 <div class="topnav">
+  <img src="images/favicon.png">
   <a href="/">Home</aclass="active">
   <a class="active" href="/login">Login</a>
   <a href="/registration">Register</a>
   <a href="/products">Products</a>
 </div>
+
+
+<fieldset class="loginform">
+<form action="/login" method="post">
+
+  <div class="container">
+    <h1>Login</h1>
+    <hr>
+
+    <label for="uname"><b>E-mail</b></label>
+    <input type="text" placeholder="Enter E-mail" name="email" required>
+
+    <label for="psw"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="psw" required>
+
+    <button type="submit">Login</button>
+    <label>
+      <input type="checkbox" checked="checked" name="remember"> Remember me
+    </label>
+  </div>
+
+  <div class="container" style="background-color:#f1f1f1">
+    <button type="button" class="cancelbtn">Cancel</button>
+    <span class="psw">Forgot <a href="#">password?</a></span>
+  </div>
+</form>
+</fieldset>
+
+

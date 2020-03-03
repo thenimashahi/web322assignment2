@@ -1,6 +1,38 @@
+<header>
 <div class="topnav">
+  <img src="images/favicon.png">
   <a class="active" href="/">Home</aclass="active">
   <a href="/login">Login</a>
   <a href="/registration">Register</a>
   <a href="/products">Products</a>
+</div>
+</header>
+
+<div class="banner">
+  <img src="images/salebanner.png">
+</div>
+
+<div class="bestsellers">
+  <h1 id="bestsellersheading"> Best Sellers </h1>
+
+ {{#each bestSellers}}
+        <div class="card">
+            <img src="{{this.image}}">
+            <h1>{{this.title}}</h1>
+            <p class="price">${{this.price}}</p>
+            <p>{{this.description}}</p>
+            <p><button>Add to Cart</button></p>
+        </div>
+    {{/each}}
+
+</div>
+
+<div class="productcategories">
+  <h1 id="productheading"> Categories </h1>
+ {{#each categories}}
+        <div class="card">
+            <img src="{{this.image}}">
+            <h1>{{this.category}}</h1>
+        </div>
+    {{/each}}
 </div>

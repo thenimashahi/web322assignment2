@@ -1,6 +1,17 @@
 <div class="topnav">
+  <img src="images/favicon.png">
   <a href="/">Home</a>
   <a href="/login">Login</a>
   <a href="/registration">Register</a>
   <a class="active" href="/products">Products</a>
 </div>
+
+ {{#each data}}
+        <div class="card">
+            <img src="{{this.image}}">
+            <h1>{{this.title}}</h1>
+            <p class="price">${{this.price}}</p>
+            <p>{{this.description}}</p>
+            <p><button>Add to Cart</button></p>
+        </div>
+    {{/each}}
