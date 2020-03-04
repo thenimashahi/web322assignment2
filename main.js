@@ -1,8 +1,8 @@
+require('dotenv').config({path:"./config/.env"});
 const express= require("express");
 const exphbs = require("express-handlebars");
 const bodyParser = require('body-parser');
 const productModel = require("./models/products.js");
-
 
 
 const app = express();
@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 //routes
 
 app.get("/",(req,res)=>{
-        
+
         res.render("index",{
                 title : "Home Page",
                 categories: productModel.getCategories(),
@@ -53,6 +53,13 @@ app.get("/login",(req,res)=>{
             title : "Customer Login Page"
     })
 });
+
+app.get("/dashboard",(req,res)=>{
+
+        res.render("dashboard",{
+                title : "Welcome!"
+        })
+    });
 
 
 //Login page POST request
@@ -101,10 +108,17 @@ if (errorMessages.length > 0){
 // Registration page POST request
 
 app.post('/registration', (req, res) => {
+        //requiring sendgrid package
+        const sgMail = require('@sendgrid/mail');
+
+        //setting sendgrid API key
+        sgMail.setApiKey(process.env.SEND_GRID_API_KEY);
+
 
         var re = /\S+@\S+\.\S+/;
         var passRe = /^[a-zA-Z0-9]+$/;
         
+        //creating error messages and booleans to pass through with handlebars.
         const errorMessages = [];
         var emailErrorMessage;
         var emailErrorMessageBool;
@@ -112,7 +126,9 @@ app.post('/registration', (req, res) => {
         var passwordErrorMessageBool;
         var passwordMatchBool;
         var passwordMatchErrorMessage;
+
         
+        // form validation, if an invalid form is submitted:
         if (req.body.email == ""){
                 emailErrorMessage = "Please enter an e-mail."
                 errorMessages.push(emailErrorMessage);
@@ -162,23 +178,42 @@ app.post('/registration', (req, res) => {
                         })
                 } else {
 
-                res.render("registration", {
-                        errors: errorMessages,
-                        emailError: emailErrorMessage,
-                        isEmailError: emailErrorMessageBool,
-                        isPasswordError: passwordErrorMessageBool,
-                        passwordError: passwordErrorMessage
-                })
-        }
+                        res.render("registration", {
+                                errors: errorMessages,
+                                emailError: emailErrorMessage,
+                                isEmailError: emailErrorMessageBool,
+                                isPasswordError: passwordErrorMessageBool,
+                                passwordError: passwordErrorMessage
+                        })
+                }
+        } else {
+                // when a valid form is submitted:
+                const msg = {
+                        to: req.body.email,
+                        from: 'nima@mycompany.ca',
+                        subject: 'Welcome to our website!',
+                        html: `
+                        Welcome to our crossfit supplies website! We are happy you joined! Stay tuned for the lastest crossfit news. 
+                        `,
+                      };
+
+                      //asynchronous operation dealings (then for success / catch for unsuccess)
+                      sgMail.send(msg)
+                      .then(()=>{
+                              res.redirect("/dashboard")
+                      })
+                      .catch(err=>{
+                              console.log(`Error ${err}`);
+                      })
         }
         
         
-        })
+        });
 
 
 
 // open server
-const PORT = 3000;
+const PORT = process.env.PORT
 app.listen(PORT , ()=>
 {
         console.log(`Web application is up and running. `);
