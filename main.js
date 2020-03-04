@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const productModel = require("./models/products.js");
 
 
+
 const app = express();
 
 //load static resources
@@ -52,6 +53,50 @@ app.get("/login",(req,res)=>{
             title : "Customer Login Page"
     })
 });
+
+
+//post requests 
+
+app.post('/login', (req, res) => {
+
+var re = /\S+@\S+\.\S+/;
+
+const errorMessages = [];
+var emailErrorMessage;
+var emailErrorMessageBool;
+var passwordErrorMessage;
+var passwordErrorMessageBool;
+
+if (req.body.email == ""){
+        emailErrorMessage = "Please enter an e-mail."
+        errorMessages.push(emailErrorMessage);
+        emailErrorMessageBool = true;
+        
+} else if (!re.test(req.body.email)){
+        emailErrorMessage = "Please enter a valid e-mail format."
+        errorMessages.push(emailErrorMessage);
+        emailErrorMessageBool = true;
+}
+
+if (req.body.psw == ""){
+        passwordErrorMessage = "Please enter a password."
+        errorMessages.push(passwordErrorMessage);
+        passwordErrorMessageBool = true;
+}
+
+if (errorMessages.length > 0){
+        res.render("login", {
+                uemail: req.body.email,
+                errors: errorMessages,
+                emailError: emailErrorMessage,
+                isEmailError: emailErrorMessageBool,
+                isPasswordError: passwordErrorMessageBool,
+                passwordError: passwordErrorMessage
+        })
+}
+
+
+})
 
 
 
