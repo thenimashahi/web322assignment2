@@ -243,3 +243,9 @@ span.psw {
 .card img {
   width: 100%;
 }
+
+/* Serverside validation messages */
+
+.errors {
+  color: #f44336;
+}

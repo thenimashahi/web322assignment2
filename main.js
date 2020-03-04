@@ -55,7 +55,7 @@ app.get("/login",(req,res)=>{
 });
 
 
-//post requests 
+//Login page POST request
 
 app.post('/login', (req, res) => {
 
@@ -97,6 +97,83 @@ if (errorMessages.length > 0){
 
 
 })
+
+// Registration page POST request
+
+app.post('/registration', (req, res) => {
+
+        var re = /\S+@\S+\.\S+/;
+        var passRe = /^[a-zA-Z0-9]+$/;
+        
+        const errorMessages = [];
+        var emailErrorMessage;
+        var emailErrorMessageBool;
+        var passwordErrorMessage;
+        var passwordErrorMessageBool;
+        var passwordMatchBool;
+        var passwordMatchErrorMessage;
+        
+        if (req.body.email == ""){
+                emailErrorMessage = "Please enter an e-mail."
+                errorMessages.push(emailErrorMessage);
+                emailErrorMessageBool = true;
+                
+        } else if (!re.test(req.body.email)){
+                emailErrorMessage = "Please enter a valid e-mail format."
+                errorMessages.push(emailErrorMessage);
+                emailErrorMessageBool = true;
+        }
+        
+        if (req.body.psw == ""){
+                passwordErrorMessage = "Please enter a password."
+                errorMessages.push(passwordErrorMessage);
+                passwordErrorMessageBool = true;
+        } else if (req.body.psw.length < 8){
+                passwordErrorMessage = "Your password must be at least 8 characters long."
+                errorMessages.push(passwordErrorMessage);
+                passwordErrorMessageBool = true;
+        } else if (!passRe.test(req.body.psw)){
+                passwordErrorMessage = "Please only enter numbers or letters for the password."
+                errorMessages.push(passwordErrorMessage);
+                passwordErrorMessageBool = true;
+        }
+
+        if (req.body.pswrepeat == ""){
+                passwordMatchErrorMessage = "Please re-enter the password."
+                errorMessages.push(passwordMatchErrorMessage);
+                passwordMatchBool = true;
+        } else if(req.body.psw != req.body.pswrepeat){
+                passwordMatchErrorMessage = "The passwords entered must match."
+                errorMessages.push(passwordMatchErrorMessage);
+                passwordMatchBool = true;
+        }
+        
+        if (errorMessages.length > 0){
+                if (req.body.remember){
+                        res.render("registration", {
+                                uemail: req.body.email,
+                                errors: errorMessages,
+                                emailError: emailErrorMessage,
+                                isEmailError: emailErrorMessageBool,
+                                isPasswordError: passwordErrorMessageBool,
+                                passwordError: passwordErrorMessage,
+                                isPasswordMatchError: passwordMatchBool,
+                                passwordMatch: passwordMatchErrorMessage
+                        })
+                } else {
+
+                res.render("registration", {
+                        errors: errorMessages,
+                        emailError: emailErrorMessage,
+                        isEmailError: emailErrorMessageBool,
+                        isPasswordError: passwordErrorMessageBool,
+                        passwordError: passwordErrorMessage
+                })
+        }
+        }
+        
+        
+        })
 
 
 
