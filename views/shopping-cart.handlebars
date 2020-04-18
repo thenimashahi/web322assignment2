@@ -1,0 +1,54 @@
+<div class="topnav">
+  <img src="images/favicon.png">
+  <a href="/">Home</a>
+  
+  {{#if user}}
+
+  <a href="/logout"> Log Out </a>
+  <a href="/shopping-cart"> Shopping Cart <span>{{session.cart.totalQty}}</span></a>
+
+  {{else}}
+
+  <a href="/login">Login</a>
+  <a href="/registration">Register</a>
+
+  {{/if}}
+  
+  <a href="/profile"> Dashboard </a>
+  <a href="/products">Products</a>
+  
+</div>
+{{#if products}}
+
+<div> 
+<h1> Order Summary: </h1>
+<form action="/shopping-cart" method="POST">
+        {{#each products}}
+        <strong>Title: {{this.item.title}}</strong> <br>
+        <span>Price: ${{this.price}}</span> <br>
+        <span> Quantity: {{this.qty}}</span> <br>
+        <a href="/reduce/{{this.item._id}}"> Reduce</a> <a href="/remove/{{this.item._id}}"> Clear All</a> 
+        <br>
+        <hr>
+        {{/each}}
+
+        
+        <br>
+        <strong> Total: ${{totalPrice}}</strong>
+
+        <hr>
+        
+        
+        <button type="submit">Checkout</button>
+        </form>
+</div>
+
+{{else}}
+
+<div>
+<h2> No items in cart </h2>
+
+</div>
+
+{{/if}}
+
