@@ -71,7 +71,7 @@ router.post("/products", (req,res)=>{
             }
         })
     
-        if(!categories){
+        if(!Array.isArray(categories) || !categories.length){
             errors = "Please enter a valid category (Weights, Accessories, or Barbells). ";
             isError = true;
         }
