@@ -1,17 +1,43 @@
 <div class="topnav">
   <img src="images/favicon.png">
   <a href="/">Home</a>
+  
+  {{#if user}}
+
+  <a href="/logout"> Log Out </a>
+
+  {{else}}
+
   <a href="/login">Login</a>
   <a href="/registration">Register</a>
-  <a class="active" href="/products">Products</a>
+
+  {{/if}}
+  <a href="/profile"> Dashboard </a>
+  <a href="/products" class="active">Products</a>
 </div>
+<div id="searchcategories">
+  
+  <form method="POST" action="products">
+  <h1> Search By Category </h1>
+  <input type="text" placeholder="Search for a category...(Barbells, Weights, or Accessories)" name="searchcategory">
+  <br>
+  <input type="submit" value="Search Products">
+  </form>
+
+</div>
+  {{#if isError}}
+  <div class="isError">
+  <p>{{this.errors}}</p>
+  </div>
+  {{/if}}
 
  {{#each data}}
         <div class="card">
-            <img src="{{this.image}}">
+            <img src="uploads/{{this.productPic}}">
             <h1>{{this.title}}</h1>
             <p class="price">${{this.price}}</p>
             <p>{{this.description}}</p>
-            <p><button>Add to Cart</button></p>
+            <p><b><u>{{this.category}}</u><b></p>
+            <a href="/add-to-cart/"><p><button>Add to Cart</button></p></a>
         </div>
     {{/each}}

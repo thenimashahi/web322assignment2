@@ -1,0 +1,25 @@
+<div class="topnav">
+  <img src="images/favicon.png">
+  <a href="/">Home</a>
+  
+  {{#if user}}
+
+  <a href="/logout"> Log Out </a>
+
+  {{else}}
+
+  <a href="/login">Login</a>
+  <a href="/registration">Register</a>
+
+  {{/if}}
+  
+  <a href="/profile"> Dashboard </a>
+  <a href="/products">Products</a>
+  
+</div>
+
+<div class="loginform"> 
+
+<strong>Welcome to your profile, {{user.fname}} {{user.lname}}! </strong><br> 
+
+</div>

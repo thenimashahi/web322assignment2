@@ -249,3 +249,11 @@ span.psw {
 .errors {
   color: #f44336;
 }
+
+.border {
+  border-style: solid;
+}
+
+.isError {
+  color: red;
+}

@@ -1,9 +1,19 @@
 <header>
 <div class="topnav">
-  <img src="images/favicon.png">
-  <a class="active" href="/">Home</aclass="active">
+    <img src="images/favicon.png">
+  <a href="/" class="active">Home</a>
+  
+  {{#if user}}
+
+  <a href="/logout"> Log Out </a>
+
+  {{else}}
+
   <a href="/login">Login</a>
   <a href="/registration">Register</a>
+
+  {{/if}}
+  <a href="/profile"> Dashboard </a>
   <a href="/products">Products</a>
 </div>
 </header>
@@ -15,15 +25,19 @@
 <div class="bestsellers">
   <h1 id="bestsellersheading"> Best Sellers </h1>
 
- {{#each bestSellers}}
+
+
+   {{#each bestSeller}}
         <div class="card">
-            <img src="{{this.image}}">
+            <img src="uploads/{{this.productPic}}">
             <h1>{{this.title}}</h1>
             <p class="price">${{this.price}}</p>
             <p>{{this.description}}</p>
             <p><button>Add to Cart</button></p>
         </div>
-    {{/each}}
+  {{/each}}
+
+    
 
 </div>
 
@@ -31,7 +45,7 @@
   <h1 id="productheading"> Categories </h1>
  {{#each categories}}
         <div class="card">
-            <img src="{{this.image}}">
+            <img src="uploads/{{this.image}}">
             <h1>{{this.category}}</h1>
         </div>
     {{/each}}

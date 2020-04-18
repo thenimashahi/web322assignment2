@@ -1,0 +1,52 @@
+<div class="topnav">
+  <img src="images/favicon.png">
+  <a href="/">Home</a>
+  
+  {{#if user}}
+
+  <a href="/logout"> Log Out </a>
+
+  {{else}}
+
+  <a href="/login">Login</a>
+  <a href="/registration">Register</a>
+
+  {{/if}}
+
+  <a href="/profile"> Dashboard </a>
+  <a href="/products">Products</a>
+  
+</div>
+
+<div class="loginform"> 
+
+<strong>Welcome to your profile, {{user.fname}} {{user.lname}}! You are an administrator. </strong><br> 
+
+<h1> Products </h1>
+
+{{#each data}}
+        <div class="border">
+            <img src="/uploads/{{this.productPic}}" height="50" width="50">
+            <h4>Title: {{this.title}}</h4>
+            <p>Price: ${{this.price}}</p>
+            <p>Description: {{this.description}}</p>
+            <p>Category: {{this.category}} </p>
+            <a href="/admin/edit/{{this.id}}"> Edit </a><br>
+            <a href="/admin/delete/{{this.id}}?method=DELETE"> Delete </a>
+        </div>
+
+    {{else}}
+
+    <div>
+        <p>There are currently no products in the database.</p>
+    </div>
+
+    {{/each}}
+
+    <br>
+
+
+<a href="/adminproducts">Add Products</a>
+
+</div>
+

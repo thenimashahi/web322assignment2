@@ -1,0 +1,67 @@
+<div class="topnav">
+  <img src="images/favicon.png">
+  <a href="/">Home</a>
+  
+  {{#if user}}
+
+  <a href="/logout"> Log Out </a>
+
+  {{else}}
+
+  <a href="/login">Login</a>
+  <a href="/registration">Register</a>
+
+  {{/if}}
+  
+  <a href="/profile"> Dashboard </a>
+  <a href="/products">Products</a>
+  
+</div>
+
+<div class="loginform"> 
+
+<strong>Welcome to your profile, {{user.fname}} {{user.lname}}! You are an administrator. </strong><br> 
+
+<fieldset class="loginform">
+<form action="/admin" method="post" enctype="multipart/form-data">
+  <div class="container">
+    <h1>Add a Product</h1>
+    <p>Please fill in this form to add a product to the database as an administrator.</p>
+    <hr>
+
+    <label for="description"><b>Description</b></label>
+    <input type="text" name="description" placeholder="Enter the product description."><br>
+
+    <label for="title"><b>Product Title</b></label>
+    <input type="text" name="title" placeholder="Enter the product title."><br>
+
+    <label for="price"><b>Product Price</b></label><br>
+    <input type="text"  name="price" placeholder="$"><br><br>
+
+
+    <label for="category"><b>Product Category</b></label>
+    <input type="text"  name="category" placeholder="Enter the product category.">
+
+
+    <p>Is this product a bestseller?</p>
+    <label for="bestSeller"><b>Yes</b></label>
+    <input type="radio"  name="bestSeller" value="1" checked>
+
+    <label for="bestSeller"><b>No</b></label>
+    <input type="radio"  name="bestSeller" value=""> <br><br>
+
+    <label for "productPic"><b> Upload Picture </b></label>
+    <input type="file" name="productPic" accept="image/*">
+
+
+
+    <div class="clearfix">
+      <button type="submit" class="signupbtn">Submit</button>
+    </div>
+  </div>
+</form>
+</fieldset>
+
+<a href="/adminproducts">Add Products</a>
+
+</div>
